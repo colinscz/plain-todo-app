@@ -1,0 +1,68 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  color: black;
+}
+
+  /* detailed css in content.css */
+.container {
+  max-width: 960px;
+  margin: auto;
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+.flex-grid {
+  color: white;
+  display: flex;
+  margin: auto -1rem 1rem;
+}
+
+.sidebar {
+  flex: 1;
+  width: 32%;
+}
+
+.sidebar div .nav{
+  margin-top: 20px;
+}
+
+.sidebar .theme-switcher {
+  margin-top: 15px;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sidebar .theme-switcher > * {
+  margin-top: 15px;
+}
+
+.sidebar ul {
+  font-size: 0.8em;
+  padding-left: 10px;
+  margin: 0;
+  list-style-type: none;
+}
+
+.sidebar .navigation ul > li {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .navigation ul {
+  margin-top: 10px;
+}
+
+.main {
+  flex: 3;
+}
+
+footer {
+  margin-top: 10px;
+}
