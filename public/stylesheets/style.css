@@ -7,17 +7,10 @@ body {
 }
 
   /* detailed css in content.css */
-.container {
-  max-width: 960px;
+.content {
   margin: auto;
   font-family: sans-serif;
   line-height: 1.5;
-}
-
-.flex-grid {
-  color: white;
-  display: flex;
-  margin: auto -1rem 1rem;
 }
 
 .sidebar {
