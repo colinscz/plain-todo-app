@@ -1,8 +1,17 @@
 import * as router from './router.js';
 
-window.onload = event => {
-    // Add history push() event when boxes are clicked
-    window["home"].addEventListener("click", event => router.push(event))
-    window["new-note"].addEventListener("click", event => router.push(event))
-    window["all-notes"].addEventListener("click", event => router.push(event))
+export class ApplicationMain {
+
+    constructor () {
+        this.initializeNavigationEventListeners();
+    }
+
+    initializeNavigationEventListeners = () => {
+        console.log('test initialization');
+        // Add history push() event when boxes are clicked
+        $('#home').addEventListener("click", event => router.push(event))
+        $('#new-note').addEventListener("click", event => router.push(event))
+        $('#all-notes').addEventListener("click", event => router.push(event))
+    }
+
 }

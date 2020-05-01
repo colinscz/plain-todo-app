@@ -10,11 +10,10 @@
     <script src="/javascripts/main.js" type="module"></script>
 </head>
 <body>
-<!--    <header>
+   <header>
         <h2>Awesome VanillaJS Notes App</h2>
         <span>CAS Frontend Engineering 2020</span>
     </header>
-    <br>-->
     <div class="main">
         <div class="sidebar">
             <div class="theme-switcher">
@@ -36,36 +35,26 @@
 
         <main class="container">
             <h3>Todo</h3>
-            <div class="sort-row">
-                <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'London')">Finish Date</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Creation</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Importance</button>
-                </div>
-            </div>
-            <div class="row">
-                <!--                amount of notes as a list-->
-                <div>
-                    <div class="checkbox-container">
-                        <div class="rounder">
-                            <input type="checkbox" id="checkbox" />
-                            <label for="checkbox"></label>
-                        </div>
-                        <div class="todo-item-content">
-                            <span>Titel</span>
-                            <span>Beschreibung</span>
-                            <span>Wichtigkeit</span>
-                            <span>Fälligkeitsdatum</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <ul id="incomplete-tasks">
+                    <li>
+                        <input type="checkbox" checked="">
+                        <span>Pay Bills</span>
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </li>
+                    <li class="editMode">
+                        <input type="checkbox" checked="">
+                        <span>Go Shopping</span>
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </li>
+                </ul>
         </main>
 
     </div>
 
     <footer>
-        <span>Copyright</span>
+        <span>Copyright Colin Schwarz 2020/2021</span>
     </footer>
 
 </body>
