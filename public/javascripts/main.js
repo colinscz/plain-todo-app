@@ -1,17 +1,27 @@
-import * as router from './router.js';
+'use strict';
 
-export class ApplicationMain {
+import router from "./router";
+import Route from "./router/Route";
 
-    constructor () {
-        this.initializeNavigationEventListeners();
-    }
+import homeView from "./pages/home";
+import allNotesView from "./pages/all-notes";
+import newNoteView from "./pages/new-note";
+import errorView from "./pages/error-page";
 
-    initializeNavigationEventListeners = () => {
-        console.log('test initialization');
-        // Add history push() event when boxes are clicked
-        $('#home').addEventListener("click", event => router.push(event))
-        $('#new-note').addEventListener("click", event => router.push(event))
-        $('#all-notes').addEventListener("click", event => router.push(event))
-    }
+import "./style.css";
 
+const routes = [
+    new Route("home", "/", homeView),
+    new Route("all-notes", "/all-notes", allNotesView),
+    new Route("new-note", "/new-note", newNoteView),
+    new Route("error", "/error", errorView),
+];
+
+router(routes);
+
+export let changeStyle = () => {
+    const element = document.body;
+    element.classList.toggle("dark-mode");
 }
+
+
