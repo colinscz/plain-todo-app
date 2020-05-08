@@ -17,9 +17,8 @@ main {
   flex: 1 1 0;
   margin-top: 20px;
   font-family: sans-serif;
-  line-height: 1.5;
+  line-height: 2.5;
   padding: 5px 5px 0 5px;
-  background-color: #f2f2f2;
 }
 
 .container {
@@ -30,10 +29,19 @@ main {
 .container li {
   margin-top: 10px;
   margin-bottom: 10px;
+  border-bottom: 1px solid #1c2340;
   list-style: none;
 }
 
-  /* detailed css in content.css */
+.container ul > li > span {
+  padding-right: 125px;
+}
+
+.container ul > li > button {
+  margin-right: 20px;
+}
+
+/* detailed css in content.css */
 
 .sidebar {
   flex: 1;
@@ -57,21 +65,35 @@ main {
 }
 
 .sidebar ul {
-  font-size: 0.8em;
-  padding-left: 10px;
-  margin: 0;
   list-style-type: none;
 }
 
-.sidebar .navigation ul > li {
+.sidebar ul > li {
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
 }
 
 .sidebar .navigation ul {
   margin-top: 10px;
+}
+
+.sidebar a {
+  border-bottom: 1px solid #453886;
+  color: #453886;
+  padding-bottom: .25em;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23453886' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 20%;
+  border-bottom: 0;
+  padding-bottom: .3em;
+  text-decoration: none;
 }
 
 
@@ -85,3 +107,67 @@ footer {
   align-items: center;
   color: rgb(102, 101, 101);
 }
+
+
+
+/* slider css */
+.sun, .moon {
+  height: 25px;
+  width: 25px;
+}
+
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+}
+
+.switcher{
+  display: flex;
+  height: 25px;
+  position: relative;
+  width: 52px;
+}
+
+.switcher input {
+  display:none;
+}
+
+.theme-slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+.theme-slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 17px;
+  left: 4px;
+  position: absolute;
+  transition: .4s;
+  width: 17px;
+}
+
+input:checked + .theme-slider {
+  background-color: royalblue;
+}
+
+input:checked + .theme-slider:before {
+  transform: translateX(26px);
+}
+
+.theme-slider.round {
+  border-radius: 25px;
+}
+
+.theme-slider.round:before {
+  border-radius: 50%;
+}
+/* slider css end */
