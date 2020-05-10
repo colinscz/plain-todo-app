@@ -13,6 +13,11 @@ import errorView from "./pages/error-page";
 
 window.$ = jQuery;
 
+
+$("#new-note").click( function () {
+    $("main").load("pages/new-note.html");
+});
+
 const routes = [
     new Route("home", "/", 'index'),
     new Route("all-notes", "/all-notes", 'all-notes'),
