@@ -10,11 +10,12 @@ export default (routes) => {
     const router = new Router(routes, document.getElementById("app"));
 
     document.addEventListener("DOMContentLoaded", (e) => {
-        document.querySelectorAll("[route]").forEach((route) =>
+        document.querySelectorAll("[href]").forEach((route) =>
             route.addEventListener(
                 "click",
                 (e) => {
                     e.preventDefault();
+                    console.log('test id selection: ', e.target.getAttribute("route"));
                     router.navigate(e.target.getAttribute("route"));
                 },
                 false
@@ -24,3 +25,4 @@ export default (routes) => {
 
     window.addEventListener("_pushstate", (e) => router.navigate(e.detail));
 };
+

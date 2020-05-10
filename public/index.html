@@ -1,61 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Awesome VanillaJS Notes App</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-<!--    <link rel="stylesheet" href="/stylesheets/content.css">
-    <link rel="stylesheet" href="/stylesheets/theme-switcher.css">
-    <link rel="stylesheet" href="/stylesheets/round-checkbox.css">-->
-    <script src="/javascripts/main.js" type="module"></script>
-</head>
-<body>
-   <header>
-        <h2>Awesome VanillaJS Notes App</h2>
-        <span>CAS Frontend Engineering 2020</span>
-    </header>
-    <div class="main">
-        <div class="sidebar">
-            <div class="theme-switcher">
-                <img src="/images/sun.svg" class="sun" />
-                <img src="/images/moon.svg" class="moon" />
-                <label class="switcher">
-                    <input type="checkbox" id="theme-switch" />
-                    <div class="theme-slider round"> </div>
-                </label>
-            </div>
-            <div class="nav">
-                <ul class="navigation">
-                    <li><a href="#home" id="home" route="home">Home</a></li>
-                    <li><a href="#newnote" id="new-note" route="new-note">Create</a></li>
-                    <li><a href="#allnotes" id="all-notes" route="allnotes">Notes</a></li>
-                </ul>
-            </div>
-        </div>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Notes App CAS Frontend Engineering</title>
 
-        <main id="app" class="container">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="stylesheets/style.css"/>
+
+        <script defer src="/javascripts/main.js" type="module"></script>
+        <script defer src="/javascripts/style-switcher.js" type="module"></script>
+    </head>
+
+    <body class="light">
+    <!-- Navbar -->
+
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">Home</li>
+                <li class="nav-item">All Notes</li>
+
+                <!-- Dropdown -->
+
+                <li class="nav-item has-dropdown">
+                    <a href="#">Theme</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item">
+                            <a id="light" href="#">light</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a id="dark" href="#">dark</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">New Note</li>
+            </ul>
+        </nav>
+
+        <header>
+            <img src="images/logo.jpg" class="logo"/>
+            <h1>CAS Frontend Engineering,<br/>Notes App</h1>
+        </header>
+
+        <main>
+            <h3>Sailor Ipsum</h3>
             <h3>Todo</h3>
-                <ul id="incomplete-tasks">
-                    <li>
-                        <input type="checkbox" checked="">
-                        <span>Pay Bills</span>
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </li>
-                    <li class="editMode">
-                        <input type="checkbox" checked="">
-                        <span>Go Shopping</span>
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </li>
-                </ul>
+            <ul id="incomplete-tasks">
+                <li>
+                    <input type="checkbox" checked="">
+                    <span>Pay Bills</span>
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </li>
+                <li class="editMode">
+                    <input type="checkbox" checked="">
+                    <span>Go Shopping</span>
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </li>
+            </ul>
+            <p>
+                Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast
+                yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog
+                yardarm hempen halter furl. Swab barque interloper chantey doubloon
+                starboard grog black jack gangway rutters.
+            </p>
         </main>
 
-    </div>
-
-    <footer>
-        <span>Copyright Colin Schwarz 2020/2021</span>
-    </footer>
-
-</body>
+        <footer>
+            <span>Copyright Colin Schwarz 2020/2021</span>
+        </footer>
+    </body>
 </html>

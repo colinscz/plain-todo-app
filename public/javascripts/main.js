@@ -1,27 +1,28 @@
 'use strict';
 
-import router from "./router";
-import Route from "./router/Route";
+import '/jquery.min.js';
+import router from "./router/Router.js";
+import Route from "./router/Route.js";
 
+/*
 import homeView from "./pages/home";
-import allNotesView from "./pages/all-notes";
+import allNotesView from "./pages/all-notes.html";
 import newNoteView from "./pages/new-note";
 import errorView from "./pages/error-page";
+*/
 
-import "./style.css";
+window.$ = jQuery;
 
 const routes = [
-    new Route("home", "/", homeView),
-    new Route("all-notes", "/all-notes", allNotesView),
-    new Route("new-note", "/new-note", newNoteView),
-    new Route("error", "/error", errorView),
+    new Route("home", "/", 'index'),
+    new Route("all-notes", "/all-notes", 'all-notes'),
+    new Route("new-note", "/new-note", 'new-note'),
+    new Route("error", "/error", 'error-page'),
 ];
 
 router(routes);
 
-export let changeStyle = () => {
-    const element = document.body;
-    element.classList.toggle("dark-mode");
-}
+// DOM Elements
+
 
 
