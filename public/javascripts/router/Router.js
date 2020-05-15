@@ -6,7 +6,6 @@ export default class Router {
         this.routes = routes;
         this.renderNode = renderNode;
         this.navigate(location.pathname + location.hash);
-
     }
 
     /**
@@ -47,19 +46,24 @@ export default class Router {
     }
 
     navigate(path) {
-        const route = this.routes.filter((route) => this.match(route, path))[0];
-        console.log('route matched is: ', route);
+        if('/' === path) {
+            $('main').load('all-notes.html');
+        } else {
+            const route = this.routes.filter((route) => this.match(route, path))[0];
+            console.log('route matched is: ', route);
 
-        if (!route) {
-            // TODO forward to route 404 html with crying face
-            this.renderNode.innerHTML = "404! Page not found";
-        }
-        else {
-            history.pushState({}, "", path);
+            if (!route) {
+                $('main').load('error-page.html');
+                // TODO forward to route 404 html with crying face
+                this.renderNode.innerHTML = "404! Page not found";
+            }
+            else {
+                history.pushState({}, "", path);
 
-            $('#app').load(route + '.html');
+                $('main').load(route + '.html');
 
-            render(route.renderView(), this.renderNode); // avoided innerHTML // find other solution for this !
+                render(route.renderView(), this.renderNode); // avoided innerHTML // find other solution for this !
+            }
         }
     }
 

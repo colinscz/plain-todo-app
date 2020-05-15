@@ -64,6 +64,10 @@ img {
   height: 100%;
 }
 
+.nav-item {
+  cursor: pointer;
+}
+
 
 .dropdown {
   position: absolute;
@@ -183,15 +187,47 @@ img {
 
 /* form design
  */
+/*.container {
+  display: flex;
+  align-items: center;
+}*/
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  width: 80%;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+
+input,
+textarea,
+select {
+  font-size: 15px;
+}
+
+form > label {
+  font-weight: bold;
+}
 
 textarea {
-  width: 100%;
+  width: 80%;
+  resize: none;
   background: var(--bg-form);
   color: var(--text);
 }
 
-input[type=text], select {
-  width: 100%;
+
+input[type=text], input[type=date], select {
+  width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -203,7 +239,7 @@ input[type=text], select {
 }
 
 input[type=submit] {
-  width: 100%;
+  width: 80%;
   background-color: var(--blue);
   color: white;
   padding: 14px 20px;
