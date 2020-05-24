@@ -6,5 +6,9 @@
     "prefer-const" : "warn",
     "no-var": "warn",
     "no-console": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
   }
 }
