@@ -12,6 +12,9 @@
     "handlebars": "^4.7.6",
     "http-errors": "~1.6.3",
     "jquery": "^3.5.0",
+    "moment": "^2.26.0",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.15",
     "morgan": "~1.9.1"
   },
   "devDependencies": {

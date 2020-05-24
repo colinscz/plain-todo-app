@@ -2,12 +2,20 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 var logger = require('morgan');
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
+var notesRouter = require('./routes/notes');
 
 var app = express();
+
+const dbHost = 'mongodb://localhost:27017/tododb';
+
+// Connect to mongodb
+mongoose.connect(dbHost
+);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -18,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/notes', notesRouter);
 
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
@@ -34,5 +43,26 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose connected to ' + dbHost);
+});
+mongoose.connection.on('error', function (err) {
+  console.log('Mongoose connection error: ' + err);
+});
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose disconnected');
+});
+
+let gracefulShutdown;
+gracefulShutdown = function (msg, callback) {
+  mongoose.connection.close(function () {
+    console.log('Mongoose disconnected through ' + msg);
+    callback();
+  });
+};
 
 module.exports = app;
