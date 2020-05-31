@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 
+const dtoMapper = require('../dto/dtoMapper');
 const Note = require('../models/notes');
 
 /* GET users listing. */
@@ -67,7 +68,11 @@ router.get('/note',
                 }
             );
 
-        res.json(notesList);
+        let notesDtoList = [];
+        for (let note of notesList) {
+            notesDtoList.push(dtoMapper.notesToDto(note));
+        }
+        res.json(notesDtoList);
     });
 
 

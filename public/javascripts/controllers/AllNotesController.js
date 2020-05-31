@@ -29,7 +29,7 @@ export default class AllNotesController {
               </div>`;
 
         this.allNotesTemplate = Handlebars.compile(this.template);
-        this.mainContainer = document.querySelector("#content");
+        this.mainContainer = document.querySelector("main");
         this.notesService = notesService;
 
     }
