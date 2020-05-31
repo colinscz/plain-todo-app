@@ -1,31 +1,33 @@
 'use strict';
 
+// import notesService from './services/notes-service.js';
+
+
 import '/jquery.min.js';
-import router from "./router/Router.js";
-import Route from "./router/Route.js";
+import AllNotesController from './controllers/AllNotesController.js';
+import ErrorController from './controllers/ErrorController.js';
+import { SingleNoteController } from './controllers/SingleNoteController.js';
 
 window.$ = jQuery;
 
+document.addEventListener('DOMContentLoaded', AllNotesController.doBootstrap);
 
-$("#new-note").click( function () {
-    $("main").load("pages/new-note.html");
+$("#newNote").click( function () {
+    SingleNoteController.doBootstrap();
+ //   $("main").load("pages/new-note.html");
 });
 
-$("#home").click( function () {
-    $.load("index.html");
+$("#allNotes").click( function () {
+    AllNotesController.doBootstrap();
 });
 
-$("#all-notes").click( function () {
-    $("main").load("pages/all-notes.html");
-});
+const routes = {
+    allNotes: AllNotesController,
+    newNote: SingleNoteController,
+    error: ErrorController
+};
 
-const routes = [
-    new Route("all-notes", "/all-notes", 'all-notes'),
-    new Route("new-note", "/new-note", 'new-note'),
-    new Route("error", "/error", 'error-page'),
-];
-
-new router(routes);
+// new router(routes);
 
 // DOM Elements
 

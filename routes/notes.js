@@ -10,19 +10,19 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/completed', async(req, res, next) => {
+router.get('/note/completed', async(req, res, next) => {
 
 
-  await Note.find({'completed': true})
+  const notesList = await Note.find({'completed': true})
       .catch((error) => {
         console.log(error, 'Promise error: ' + error.message);
       }
   );
   // fetch all completed notes from db
-  res.send('respond with a resource');
+    res.json(notesList);
 });
 
-router.get('/important', function(req, res, next) {
+router.get('/note/important', function(req, res, next) {
 
   // fetch all important notes from db
   res.send('respond with a resource');

@@ -8,8 +8,11 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"/>
         <link rel="stylesheet" href="stylesheets/style.css"/>
 
-        <script src="/javascripts/main.js" type="module"></script>
-        <script defer src="/javascripts/style-switcher.js" type="module"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"
+                integrity="sha256-qlku5J3WO/ehJpgXYoJWC2px3+bZquKChi4oIWrAKoI="
+                crossorigin="anonymous"></script>
+        <script src="/javascripts/main.js" type="module" defer></script>
+        <script src="/javascripts/style-switcher.js" type="module" defer></script>
     </head>
 
     <body class="light">
@@ -17,11 +20,9 @@
 
         <nav class="navbar">
             <ul class="navbar-nav">
-                <li class="nav-item" id="home">Home</li>
-                <li class="nav-item" id="all-notes">All Notes</li>
+                <li class="nav-item" id="allNotes">All Notes</li>
 
                 <!-- Dropdown -->
-
                 <li class="nav-item has-dropdown">
                     <a href="#">Theme</a>
                     <ul class="dropdown">
@@ -34,7 +35,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item" id="new-note">New Note</li>
+                <li class="nav-item" id="newNote">New Note</li>
             </ul>
         </nav>
 
@@ -43,8 +44,8 @@
             <h1>CAS Frontend Engineering,<br/>Notes App</h1>
         </header>
 
-        <main>
-
+        <main id="content">
+            &nbsp;
         </main>
 
         <footer>

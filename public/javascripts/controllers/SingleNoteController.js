@@ -1,7 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<body>
-    <div class="container">
+import NotesService from '../services/notes-service.js';
+
+
+export class SingleNoteController {
+
+    constructor (notesService) {
+        this.template = `
+            <div class="container">
         <form action="/">
             <div class="row">
                 <div class="col-25">
@@ -39,6 +43,41 @@
                 <input type="submit" value="Submit">
             </div>
         </form>
-    </div>
-</body>
-</html>
+    </div>`;
+
+
+        this.singleNoteTemplate = Handlebars.compile(this.template);
+        this.mainContainer = document.querySelector("main");
+        this.notesService = notesService;
+
+    }
+
+    initEventHandlers() {
+        console.log('here are the event handlers');
+    }
+
+    async renderSingleNoteView() {
+       // this.allNotes = this.notes;
+      this.mainContainer.innerHTML = this.singleNoteTemplate({
+        });
+        this.initEventHandlers();
+    }
+
+    async init() {
+      //  this.notes = await this.notesService.getAllNotes();
+        console.log('init method called')
+        await this.renderSingleNoteView();
+    }
+
+    /*    async sortNotes(notes) {
+            return [...notes].sort(compareNotes)
+        }
+
+        async compareNotes(n1, n2) {
+            return n2.importance - n1.importance;
+        }*/
+
+    static async doBootstrap() {
+        await new SingleNoteController(new NotesService('/api/note')).init();
+    }
+}

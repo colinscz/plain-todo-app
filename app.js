@@ -1,10 +1,10 @@
-// var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+// let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-var logger = require('morgan');
+let logger = require('morgan');
 
 const indexRouter = require('./routes');
 const notesRouter = require('./routes/notes');
@@ -12,7 +12,7 @@ const notesRouter = require('./routes/notes');
 mongoose.Promise = require('bluebird');
 mongoose.set('debug', true);
 
-var app = express();
+let app = express();
 
 const dbHost = 'mongodb://localhost:27017/tododb';
 
