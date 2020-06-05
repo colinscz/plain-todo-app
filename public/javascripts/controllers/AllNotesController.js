@@ -7,9 +7,10 @@ export default class AllNotesController {
         this.template = `
             <div class="container">
                     <h3>Todo</h3>
-                    <button>Sort by Due Date</button>
-                    <button>Sort by Creation Date</button>
-                    <button>Sort by Importance</button>
+                    <button class="sortByDate">Sort by Due Date</button>
+                    <button class="sortByCreation">Sort by Creation Date</button>
+                    <button class="ByImportance">Sort by Importance</button>
+                    <button class="completedTasks">Show completed tasks</button>
                     <button></button>
                     <ul id="incomplete-tasks" class="tasks">
                         {{#if notes}}
@@ -42,9 +43,9 @@ export default class AllNotesController {
     initEventHandlers() {
         console.log('here are the AllNotesController.js event handlers');
 
-
        // let completeAction = document.querySelectorAll(".completed");
-       document.querySelector(".tasks").addEventListener('click', (event) => {
+       document.querySelector(".tasks")
+                .addEventListener('click', (event) => {
            let {id, action} = event.target.dataset;
            console.log('id: ', id);
            console.log('action: ', action);
@@ -57,7 +58,7 @@ export default class AllNotesController {
                    this.deleteNote(affectedNote);
                    break;
                case 'editNote':
-                   console.log('go to singleController');
+                   this.navigateToSingleNote(id);
                    break;
                case 'completeNote':
                    this.completeNote(affectedNote);
@@ -67,6 +68,12 @@ export default class AllNotesController {
                    break;
            }
        });
+
+       document.querySelector('.completedTasks')
+                .addEventListener('click', (event) => {
+                    // needs to be deselectable!
+            this.getCompletedNotes();
+       })
 
 
     }
@@ -98,6 +105,16 @@ export default class AllNotesController {
     async completeNote(note) {
         await this.notesService.completeNote(note);
         await this.renderAllNotesView();
+    }
+
+    async getCompletedNotes() {
+        this.notes = await this.notesService.getCompletedNotes();
+        await this.renderAllNotesView();
+    }
+
+    navigateToSingleNote(id) {
+        console.log('go to singleController');
+        // routing to singleNoteController
     }
 
 /*    async sortNotes(notes) {

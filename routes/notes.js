@@ -8,7 +8,6 @@ const Note = require('../models/notes');
 
 router.get('/note/completed', async(req, res, next) => {
 
-
   const notesList = await Note.find({'completed': true})
       .catch((error) => {
         console.log(error, 'Promise error: ' + error.message);

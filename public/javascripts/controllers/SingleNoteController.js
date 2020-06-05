@@ -83,13 +83,27 @@ export class SingleNoteController {
     async renderSingleNoteView() {
        // this.allNotes = this.notes;
       this.mainContainer.innerHTML = this.singleNoteTemplate();
+      this.notesForm = document.getElementById('notes-form');
       this.initEventHandlers();
     }
 
     async init() {
       //  this.notes = await this.notesService.getAllNotes();
         console.log('init method called')
+
         await this.renderSingleNoteView();
+
+        // check if the call is for an edit task or not
+       // const id = // get from router or call
+       // this.notesService.getNoteById(id);
+        // this.injectNoteIntoForm(note);
+    }
+
+    injectNoteIntoForm(note) {
+        this.notesForm.title = note.title;
+        this.notesForm.description = note.description;
+        this.notesForm.importance = note.importance;
+        this.notesForm.dueDate = note.dueDate;
     }
 
     static async doBootstrap() {

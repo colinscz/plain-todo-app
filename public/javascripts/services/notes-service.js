@@ -2,6 +2,7 @@ export default class NotesService {
 
     constructor (url) {
         this.url = url;
+        this.completedUrl = this.url + '/completed';
     }
 
     async getNoteById(id) {
@@ -14,11 +15,11 @@ export default class NotesService {
     }
 
     async getCompletedNotes() {
-        return fetch(this.url + '/completed').then(response => response.json());
+        return fetch(this.completedUrl).then(response => response.json());
     }
 
     async completeNote(note) {
-        return fetch(this.url + '/completed', {
+        return fetch(this.completedUrl, {
             method: 'PUT',
             body: JSON.stringify(note),
             headers:{
