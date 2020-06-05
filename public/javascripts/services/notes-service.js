@@ -5,7 +5,7 @@ export default class NotesService {
     }
 
     async getNoteById(id) {
-        return fetch(this.url + '/${id}' )
+        return fetch(this.url + `/${id}` )
     }
 
     async getAllNotes() {
@@ -14,16 +14,50 @@ export default class NotesService {
     }
 
     async getCompletedNotes() {
-        return fetch(this.url + '/completed' ).then(response => response.json());
+        return fetch(this.url + '/completed').then(response => response.json());
+    }
+
+    async completeNote(note) {
+        return fetch(this.url + '/completed', {
+            method: 'PUT',
+            body: JSON.stringify(note),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
     }
 
     async createNote(note) {
-        // retun post(this.url, note);
+        console.log('triggered: ', note);
+        return fetch(this.url, {
+            method: 'POST',
+            body: JSON.stringify(note),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json());
     }
 
     async updateNote(note) {
-        // return put(this.url, note);
+        return fetch(this.url, {
+            method: 'PUT',
+            body: JSON.stringify(note),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
     }
+
+    async deleteNote(note) {
+        return fetch(this.url, {
+            method: 'DELETE',
+            body: JSON.stringify(note),
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
 
 
 }

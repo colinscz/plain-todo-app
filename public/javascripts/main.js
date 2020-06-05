@@ -1,8 +1,5 @@
 'use strict';
 
-// import notesService from './services/notes-service.js';
-
-
 import '/jquery.min.js';
 import AllNotesController from './controllers/AllNotesController.js';
 import ErrorController from './controllers/ErrorController.js';
@@ -14,7 +11,6 @@ document.addEventListener('DOMContentLoaded', AllNotesController.doBootstrap);
 
 $("#newNote").click( function () {
     SingleNoteController.doBootstrap();
- //   $("main").load("pages/new-note.html");
 });
 
 $("#allNotes").click( function () {

@@ -6,61 +6,84 @@ export class SingleNoteController {
     constructor (notesService) {
         this.template = `
             <div class="container">
-        <form action="/">
-            <div class="row">
-                <div class="col-25">
-                    <label for="fname">Titel</label>
-                </div>
-                <div class="col-75">
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="subject">Beschreibung:</label>
-                </div>
-                <div class="col-75">
-                    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="due-date">Due date:</label>
-                </div>
-                <div class="col-75">
-                    <input type="date" id="due-date" name="due-date">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="importance">Wichtigkeit</label>
-                </div>
-                <div class="col-75 rating">
-                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                </div>
-            </div>
-            <div class="row">
-                <input type="submit" value="Submit">
-            </div>
-        </form>
-    </div>`;
-
+                <form id="notes-form" action="/">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="title">Titel</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="title" name="title" placeholder="Your name..">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="description">Beschreibung:</label>
+                        </div>
+                        <div class="col-75">
+                            <textarea id="description" name="description" placeholder="Write something.." style="height:200px"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="dueDate">Due date:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="date" id="dueDate" name="dueDate">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="importance">Wichtigkeit</label>
+                        </div>
+                        <div class="col-75 rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>                       
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>`;
 
         this.singleNoteTemplate = Handlebars.compile(this.template);
         this.mainContainer = document.querySelector("main");
         this.notesService = notesService;
-
     }
 
     initEventHandlers() {
         console.log('here are the event handlers');
+
+        document.querySelector('#notes-form').addEventListener('submit', async(event) => {
+            event.preventDefault();
+            const submittedNote = {
+                title: event.target.title.value,
+                description: event.target.description.value,
+                dueDate: event.target.dueDate.value,
+                importance: 4,
+                completed: false
+            };
+
+/*            if (isUpdateOfNote) {
+                submittedNote.id = id;
+                importance: event.target.importance.value,
+                await this.notesService.updateNote(submittedNote)
+            } else { keis update}
+            */
+           await this.notesService.createNote(submittedNote);
+           // return to AllListController --> navigate with router
+           await this.renderSingleNoteView();
+
+        })
     }
 
     async renderSingleNoteView() {
        // this.allNotes = this.notes;
-      this.mainContainer.innerHTML = this.singleNoteTemplate({
-        });
-        this.initEventHandlers();
+      this.mainContainer.innerHTML = this.singleNoteTemplate();
+      this.initEventHandlers();
     }
 
     async init() {
@@ -68,14 +91,6 @@ export class SingleNoteController {
         console.log('init method called')
         await this.renderSingleNoteView();
     }
-
-    /*    async sortNotes(notes) {
-            return [...notes].sort(compareNotes)
-        }
-
-        async compareNotes(n1, n2) {
-            return n2.importance - n1.importance;
-        }*/
 
     static async doBootstrap() {
         await new SingleNoteController(new NotesService('/api/note')).init();
