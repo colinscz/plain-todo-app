@@ -37,6 +37,7 @@ router.post('/note',
       note.title = req.body.title;
       note.description = req.body.description;
       note.dueDate = parsedActiveFromDate;
+      note.creationDate = new Date();
       note.importance = req.body.importance;
       note.completed = req.body.completed;
 

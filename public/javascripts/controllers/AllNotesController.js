@@ -9,7 +9,7 @@ export default class AllNotesController {
                     <h3>Todo</h3>
                     <button class="sortByDate">Sort by Due Date</button>
                     <button class="sortByCreation">Sort by Creation Date</button>
-                    <button class="ByImportance">Sort by Importance</button>
+                    <button class="byImportance">Sort by Importance</button>
                     <button class="completedTasks">Show completed tasks</button>
                     <button></button>
                     <ul id="incomplete-tasks" class="tasks">
@@ -41,7 +41,7 @@ export default class AllNotesController {
     }
 
     initEventHandlers() {
-        console.log('here are the AllNotesController.js event handlers');
+        console.log('AllNotesController.js event handlers');
 
        // let completeAction = document.querySelectorAll(".completed");
        document.querySelector(".tasks")
@@ -73,8 +73,25 @@ export default class AllNotesController {
                 .addEventListener('click', (event) => {
                     // needs to be deselectable!
             this.getCompletedNotes();
-       })
+       });
 
+       document.querySelector('.sortByDate').addEventListener(
+           'click', (event) => {
+               this.sortNotesByDueDate();
+           }
+       );
+
+        document.querySelector('.byImportance').addEventListener(
+            'click', (event) => {
+                this.sortByImportance();
+            }
+        );
+
+        document.querySelector('.sortByCreation').addEventListener(
+            'click', (event) => {
+                this.sortNotesByCreationDate();
+            }
+        );
 
     }
 
@@ -117,18 +134,24 @@ export default class AllNotesController {
         // routing to singleNoteController
     }
 
-/*    async sortNotes(notes) {
-        return [...notes].sort(compareNotes)
+    async sortNotesByDueDate() {
+        this.notes.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        console.log(this.notes);
+        this.renderAllNotesView();
     }
 
-    async compareNotes(n1, n2) {
-        return n2.importance - n1.importance;
+    async sortByImportance() {
+        this.notes.sort((a, b) => b.importance - a.importance);
+        console.log(this.notes);
+        this.renderAllNotesView();
     }
 
-    async compareDates(n1, n2) {
-
+    async sortNotesByCreationDate() {
+        this.notes.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
+        console.log(this.notes);
+        this.renderAllNotesView();
     }
-*/
+
     static async doBootstrap() {
         await new AllNotesController(new NotesService('/api/note')).init();
     }
