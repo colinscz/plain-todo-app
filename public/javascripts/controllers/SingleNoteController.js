@@ -29,7 +29,7 @@ export class SingleNoteController {
                             <label for="dueDate">Due date:</label>
                         </div>
                         <div class="col-75">
-                            <input type="date" id="dueDate" name="dueDate" required>
+                            <input type="datetime-local" id="dueDate" name="dueDate" required>
                         </div>
                     </div>
                     <div class="row">
@@ -37,15 +37,24 @@ export class SingleNoteController {
                             <label for="importance">Wichtigkeit</label>
                         </div>
                         <div class="col-75 rating">
-                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>                       
+                            <fieldset class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                                <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                            </fieldset>                        
                         </div>
                     </div>
                     <div class="row">
-                        <input type="submit" value="Submit">
+                        <div class="col-75">
+                            <input type="submit" value="Submit">
+                        </div>
                     </div>
                 </form>
             </div>`;
@@ -80,10 +89,7 @@ export class SingleNoteController {
                 await this.notesService.createNote(submittedNote);
             }
 
-           // return to AllListController --> navigate with router
-      //     await this.renderSingleNoteView();
-
-        })
+        });
     }
 
     async renderSingleNoteView() {
@@ -116,11 +122,13 @@ export class SingleNoteController {
 
     injectNoteIntoForm(note) {
         console.log('injectForm triggered');
+        console.log('due Date before assignment: ', note.dueDate);
+        console.log('parseDate: ', note.dueDate);
         this.notesForm.title.value = note.title;
         this.notesForm.description.value = note.description;
         this.notesForm.dueDate.value = note.dueDate;
         // this.notesForm.importance.value = note.importance;
-        for (let index = 0; index < note.importance; index++) {
+        for (let index = 1; index <= note.importance; index++) {
             document.getElementById('star' + index).click();
         }
     }
