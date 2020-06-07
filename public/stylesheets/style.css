@@ -32,11 +32,39 @@ main {
   padding: 2rem;
 }
 
+main > .container > ul > li {
+  border-bottom: 1px solid var(--gray2);
+  padding: 10px;
+  margin: 15px;
+}
+
+main > .container > ul > li > span {
+  padding-right: 5px;
+  border-right: 1px solid var(--text);
+}
+
+main > .container > ul > li > span:first-of-type {
+  width: 80px;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 footer {
   padding: 10px;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
+  background: var(--bg-nav);
   flex: 1 1 0;
   align-items: center;
 }
@@ -132,15 +160,22 @@ img {
   --gray5: #2a2e35;
   --gray6: #12181b;
   --blue: #0084a5;
+  --blue2: #0084a7;
+  --blue3: #0084a8;
   --purple: #a82dd1;
   --yellow: #fff565;
+  --stars: 5;
+  --star-size: 40px;
+  --star-spacing: 2px;
+  --star-on-color: #F9DF4A;
+  --star-off-color: #CCCCCC;
 }
 
 .light {
-  --bg: var(--gray0);
+  --bg: var(--gray1);
   --bg-nav: linear-gradient(to right, var(--gray1), var(--gray3));
   --bg-dropdown: var(--gray0);
-  --bg-form: var(--gray0);
+  --bg-form: var(--gray1);
   --text: var(--gray6);
   --border-color: var(--blue);
   --bg-solar: var(--yellow);
@@ -193,19 +228,34 @@ img {
 }*/
 
 .rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
+ /* width: calc((var(--star-size) * var(--stars)) + (var(--star-spacing) * (var(--stars) - 1)));
+*/
+  width: 208px;
+  height: var(--star-size);
+  padding-top: 40px;
+  padding-bottom: 40px;
   width: 80%;
 }
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
+
+.rating > input {
+  display: none;
 }
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
+
+.rating > label {
+  float: right;
+  position: relative;
+  width: var(--star-size);
+  height: var(--star-size);
+  cursor: pointer;
+}
+.rating > label:not(:first-of-type) {
+  padding-right: var(--star-spacing);
+}
+.rating > label::before {
   content: "\2605";
-  position: absolute;
+  font-size: var(--star-size) + 2px;
+  color: var(--star-off-color);
+  line-height: 1;
 }
 
 input,

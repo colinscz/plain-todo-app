@@ -11,7 +11,7 @@ export default class AllNotesController {
                     <button class="sortByCreation">Sort by Creation Date</button>
                     <button class="byImportance">Sort by Importance</button>
                     <button class="completedTasks">Show completed tasks</button>
-                    <button></button>
+                    <button>Create New</button>
                     <ul id="incomplete-tasks" class="tasks">
                         {{#if notes}}
                             {{#each notes}}
@@ -131,6 +131,7 @@ export default class AllNotesController {
 
     navigateToSingleNote(id) {
         console.log('go to singleController');
+        // this.router.navigate(
         // routing to singleNoteController
     }
 
