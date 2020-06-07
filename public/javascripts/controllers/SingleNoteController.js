@@ -71,15 +71,22 @@ export class SingleNoteController {
 
         document.querySelector('#notes-form').addEventListener('submit', async(event) => {
             event.preventDefault();
+
+            let importance = 0;
+            for (let index = 1; index <= 5 ; index++) {
+                if (document.getElementById('star' + index).checked) {
+                    importance = index;
+                }
+            }
+
             const submittedNote = {
                 title: event.target.title.value,
                 description: event.target.description.value,
                 dueDate: event.target.dueDate.value,
-                importance: 4,
+                importance: importance,
                 completed: false
             };
 
-            console.log('idTask value: ', this.idOfEditingTask);
             if (this.idOfEditingTask !== undefined) {
                 // importance: event.target.importance.value,
                 submittedNote.id = this.idOfEditingTask;
