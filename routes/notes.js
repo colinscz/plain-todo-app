@@ -14,13 +14,13 @@ router.get('/note/completed', async(req, res, next) => {
       }
   );
   // fetch all completed notes from db
-    res.json(notesList);
+    res.status(200).json(notesList);
 });
 
 router.get('/note/important', function(req, res, next) {
 
   // fetch all important notes from db
-  res.send('respond with a resource');
+  res.status(200).send('respond with a resource');
 });
 
 router.post('/note',
@@ -48,10 +48,29 @@ router.post('/note',
           res.sendStatus(500);
           return;
         }
-        res.json({message: 'Note created!'});
+        res.status(200).json({message: 'Note created!'});
       })
 });
 
+router.put('/note',
+    async (req, res, next) => {
+
+        const id = req.body.id;
+
+        console.log('body: ', req.body);
+
+        let note = await Note.findByIdAndUpdate(
+            {'_id': id}, req.body, function (err) {
+                if (err) {
+                    console.error(err);
+                    console.log('save error');
+                    res.sendStatus(500);
+                    return;
+                }
+                res.status(200).json({message: 'Note updated!'});
+            });
+
+    });
 
 router.put('/note/completed',
     async (req, res, next) => {
@@ -69,7 +88,7 @@ router.put('/note/completed',
                 res.sendStatus(500);
                 return;
             }
-            res.json({message: 'Note created!'});
+            res.status(200).json({message: 'Note created!'});
         })
     });
 
@@ -86,22 +105,35 @@ router.get('/note',
         for (let note of notesList) {
             notesDtoList.push(dtoMapper.notesToDto(note));
         }
-        res.json(notesDtoList);
+        res.status(200).json(notesDtoList);
+    });
+
+router.get('/note/:id',
+    async (req, res, next) => {
+
+    console.log('id: ' , req.params.id)
+
+            Note.findById(req.params.id, (err, note) => {
+                if (err) {
+                    res.status(500).send(error);
+                }
+                res.status(200).json(dtoMapper.notesToDto(note));
+            });
     });
 
 router.delete('/note',
     async (req, res, next) => {
         console.log('id body: ', req.body.id);
-        const id = req.param._id;
+        const id = req.body.id;
 
-        await Note.findByIdAndDelete(req.body.id, function (err) {
+        await Note.findByIdAndDelete(id, function (err) {
             if (err) {
                 console.error(err);
                 console.log('save error');
                 res.sendStatus(500);
                 return;
             }
-            res.json({message: 'Note deleted!'});
+            res.status(200).json({message: 'Note deleted!'});
         })
     });
 

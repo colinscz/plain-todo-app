@@ -6,7 +6,13 @@ export default class NotesService {
     }
 
     async getNoteById(id) {
-        return fetch(this.url + `/${id}` )
+        console.log('getNoteById is triggered');
+        return fetch(this.url + '/' + id, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }).then(response => response.json());
     }
 
     async getAllNotes() {
@@ -40,13 +46,14 @@ export default class NotesService {
     }
 
     async updateNote(note) {
+        console.log('update existing note service is triggered');
         return fetch(this.url, {
             method: 'PUT',
             body: JSON.stringify(note),
             headers:{
                 'Content-Type': 'application/json'
             }
-        });
+        }).then(response => response.json());
     }
 
     async deleteNote(note) {

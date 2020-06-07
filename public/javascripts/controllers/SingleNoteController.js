@@ -1,18 +1,19 @@
-import NotesService from '../services/notes-service.js';
+'use strict';
 
+import NotesService from '../services/notes-service.js';
 
 export class SingleNoteController {
 
     constructor (notesService) {
         this.template = `
             <div class="container">
-                <form id="notes-form" action="/">
+                <form id="notes-form">
                     <div class="row">
                         <div class="col-25">
                             <label for="title">Titel</label>
                         </div>
                         <div class="col-75">
-                            <input type="text" id="title" name="title" placeholder="Your name..">
+                            <input type="text" id="title" name="title" required placeholder="Your task title..">
                         </div>
                     </div>
                     <div class="row">
@@ -20,7 +21,7 @@ export class SingleNoteController {
                             <label for="description">Beschreibung:</label>
                         </div>
                         <div class="col-75">
-                            <textarea id="description" name="description" placeholder="Write something.." style="height:200px"></textarea>
+                            <textarea id="description" name="description" required placeholder="Write something.."></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -28,7 +29,7 @@ export class SingleNoteController {
                             <label for="dueDate">Due date:</label>
                         </div>
                         <div class="col-75">
-                            <input type="date" id="dueDate" name="dueDate">
+                            <input type="date" id="dueDate" name="dueDate" required>
                         </div>
                     </div>
                     <div class="row">
@@ -51,6 +52,8 @@ export class SingleNoteController {
 
         this.singleNoteTemplate = Handlebars.compile(this.template);
         this.mainContainer = document.querySelector("main");
+        this.idOfEditingTask = null;
+        console.log('notesform: ', this.notesForm);
         this.notesService = notesService;
     }
 
@@ -67,15 +70,18 @@ export class SingleNoteController {
                 completed: false
             };
 
-/*            if (isUpdateOfNote) {
-                submittedNote.id = id;
-                importance: event.target.importance.value,
-                await this.notesService.updateNote(submittedNote)
-            } else { keis update}
-            */
-           await this.notesService.createNote(submittedNote);
+            console.log('idTask value: ', this.idOfEditingTask);
+            if (this.idOfEditingTask !== undefined) {
+                // importance: event.target.importance.value,
+                submittedNote.id = this.idOfEditingTask;
+                console.log('update existing note is triggered');
+                await this.notesService.updateNote(submittedNote);
+            } else {
+                await this.notesService.createNote(submittedNote);
+            }
+
            // return to AllListController --> navigate with router
-           await this.renderSingleNoteView();
+      //     await this.renderSingleNoteView();
 
         })
     }
@@ -84,26 +90,39 @@ export class SingleNoteController {
        // this.allNotes = this.notes;
       this.mainContainer.innerHTML = this.singleNoteTemplate();
       this.notesForm = document.getElementById('notes-form');
-      this.initEventHandlers();
     }
 
     async init() {
-      //  this.notes = await this.notesService.getAllNotes();
         console.log('init method called')
 
         await this.renderSingleNoteView();
 
         // check if the call is for an edit task or not
-       // const id = // get from router or call
-       // this.notesService.getNoteById(id);
-        // this.injectNoteIntoForm(note);
+        this.idOfEditingTask = window.location.hash.slice().split('=')[1];
+
+        console.log('id of task to edit: ', this.idOfEditingTask);
+        console.log('Not undefined id: ', this.idOfEditingTask !== undefined);
+
+        if (this.idOfEditingTask !== undefined) {
+            console.log('id of task to edit: ', this.idOfEditingTask);
+            let editNote = await this.notesService.getNoteById(this.idOfEditingTask);
+            console.log('editNote: ', editNote);
+            this.injectNoteIntoForm(editNote);
+        }
+
+        this.initEventHandlers();
+
     }
 
     injectNoteIntoForm(note) {
-        this.notesForm.title = note.title;
-        this.notesForm.description = note.description;
-        this.notesForm.importance = note.importance;
-        this.notesForm.dueDate = note.dueDate;
+        console.log('injectForm triggered');
+        this.notesForm.title.value = note.title;
+        this.notesForm.description.value = note.description;
+        this.notesForm.dueDate.value = note.dueDate;
+        // this.notesForm.importance.value = note.importance;
+        for (let index = 0; index < note.importance; index++) {
+            document.getElementById('star' + index).click();
+        }
     }
 
     static async doBootstrap() {

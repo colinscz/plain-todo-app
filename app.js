@@ -17,7 +17,7 @@ let app = express();
 const dbHost = 'mongodb://localhost:27017/tododb';
 
 // Connect to mongodb
-mongoose.connect(dbHost, { useNewUrlParser: true });
+mongoose.connect(dbHost, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Parsers for POST data
 app.use(bodyParser.urlencoded({extended: true}));

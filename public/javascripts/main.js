@@ -23,6 +23,16 @@ const routes = {
     error: ErrorController
 };
 
+window.addEventListener("hashchange", (event) => {
+    console.log('Aktueller Hash', location.hash);
+    console.log('Neuer Hash', event.newURL);
+    console.log('Jetziger Hash', event.oldURL);
+
+    if (event.newURL.includes('#new')) {
+        SingleNoteController.doBootstrap();
+    }
+});
+
 // new router(routes);
 
 // DOM Elements

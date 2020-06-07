@@ -1,4 +1,7 @@
+'use strict';
+
 import NotesService from '../services/notes-service.js';
+import { SingleNoteController } from './SingleNoteController.js';
 
 
 export default class AllNotesController {
@@ -11,7 +14,7 @@ export default class AllNotesController {
                     <button class="sortByCreation">Sort by Creation Date</button>
                     <button class="byImportance">Sort by Importance</button>
                     <button class="completedTasks">Show completed tasks</button>
-                    <button>Create New</button>
+                    <button id="createNote">Create New</button>
                     <ul id="incomplete-tasks" class="tasks">
                         {{#if notes}}
                             {{#each notes}}
@@ -42,6 +45,11 @@ export default class AllNotesController {
 
     initEventHandlers() {
         console.log('AllNotesController.js event handlers');
+
+        $("#createNote").click( function () {
+            console.log('clicked Neew Note');
+            SingleNoteController.doBootstrap();
+        });
 
        // let completeAction = document.querySelectorAll(".completed");
        document.querySelector(".tasks")
@@ -130,6 +138,7 @@ export default class AllNotesController {
     }
 
     navigateToSingleNote(id) {
+        window.location.hash = '#new?id=' + id;
         console.log('go to singleController');
         // this.router.navigate(
         // routing to singleNoteController
