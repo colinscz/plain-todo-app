@@ -31,8 +31,7 @@ export default class AllNotesController {
                                       {{/times}}
                                      </fieldset>
                                 </span>
-                                <!-- https://stackoverflow.com/questions/18580495/format-a-date-from-inside-a-handlebars-template-in-meteor -->
-                                <span>{{dueDate}}</span>
+                                <span>{{formatDate dueDate}}</span>
                                 <button data-id="{{id}}" data-action="editNote" class="edit icon-button"><label data-id="{{id}}" data-action="editNote" title="Edit {{id}}"></label></button>
                                 <button data-id="{{id}}" data-action="deleteNote" class="delete icon-button"><label data-id="{{id}}" data-action="deleteNote" title="Delete {{id}}"></label></button>
                             </li>
@@ -142,6 +141,7 @@ export default class AllNotesController {
     }
 
     async deleteNote(note) {
+        // filter out to be deleted task from view
         await this.notesService.deleteNote(note);
         await this.renderAllNotesView();
     }
