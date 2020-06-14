@@ -1,4 +1,4 @@
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 
 body {
   margin: 0;
@@ -32,21 +32,47 @@ header {
 main {
   min-height: 1000px;
   padding: 2rem;
+  font-size: 17px;
 }
 
 main > .container > ul > li {
   border-bottom: 1px solid var(--gray2);
-  padding: 10px;
-  margin: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 main > .container > ul > li > span {
   padding-right: 5px;
+  float: left;
+  width: 420px;
+}
+
+main > .container > ul > li > input {
+  float: left;
+  width: 40px;
   border-right: 1px solid var(--text);
 }
 
-main > .container > ul > li > span:first-of-type {
-  width: 80px;
+main > .container > ul > li:first-of-type {
+  padding-top: 40px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 34px;
+}
+
+.button-set {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+}
+
+.right-aligned {
+  float: right;
 }
 
 @keyframes gradient {
@@ -225,7 +251,41 @@ img {
 fieldset, label { margin: 0; padding: 0; }
 h1 { font-size: 1.5em; margin: 10px; }
 
+/*** Icon button styling ****/
+.edit > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  display: inline-block;
+  font-family: FontAwesome;
+  content: "\f040";
+}
+
+.delete > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  display: inline-block;
+  font-family: FontAwesome;
+  content: "\f1f8";
+}
+
+
+
 /****** Style Star Rating Widget *****/
+
+.fixed-rating {
+  border: none;
+}
+
+.fixed-rating > input {
+  display: none;
+}
+.fixed-rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
 
 .rating {
   border: none;
@@ -249,7 +309,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 }
 
 .rating > label {
-  color: #ddd;
+  color: var(--gray0);
   float: right;
 }
 
@@ -268,10 +328,51 @@ h1 { font-size: 1.5em; margin: 10px; }
   color: #FFED85;
 }
 
+.button-two{
+  text-align: center;
+  cursor: pointer;
+}
+
+/*Button Two*/
+.button-two {
+  border-radius: 4px;
+  background-color: var(--blue);
+  border: none;
+  padding: 20px;
+  width: 235px;
+  transition: all 0.5s;
+}
+
+.button-two span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  transition: 0.5s;
+}
+
+.button-two span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button-two:hover span {
+  padding-right: 25px;
+}
+
+.button-two:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
 input,
 textarea,
 select {
-  font-size: 15px;
+  font-size: 17px;
 }
 
 form > label {

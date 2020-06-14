@@ -88,7 +88,7 @@ router.put('/note/completed',
                 res.sendStatus(500);
                 return;
             }
-            res.status(200).json({message: 'Note created!'});
+            res.status(200).json({message: 'Note completed!'});
         })
     });
 

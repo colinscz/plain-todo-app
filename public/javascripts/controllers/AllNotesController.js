@@ -9,12 +9,12 @@ export default class AllNotesController {
     constructor (notesService) {
         this.template = `
             <div class="container">
-                    <h3>Todo</h3>
-                    <button class="sortByDate">Sort by Due Date</button>
-                    <button class="sortByCreation">Sort by Creation Date</button>
-                    <button class="byImportance">Sort by Importance</button>
-                    <button class="completedTasks">Show completed tasks</button>
-                    <button id="createNote">Create New</button>
+                    <button id="createNote" class="right-aligned button-two"><span>Create New</span></button>
+                    <h3>Task List</h3>
+                    <button class="sortByDate button-two"><span>Sort by Due Date</span></button>
+                    <button class="sortByCreation button-two"><span>Sort by Creation Date</span></button>
+                    <button class="byImportance button-two"><span>Sort by Importance</span></button>
+                    <button class="completedTasks button-two"><span>Show completed tasks</span></button>
                     <ul id="incomplete-tasks" class="tasks">
                         {{#if notes}}
                             {{#each notes}}
@@ -23,10 +23,18 @@ export default class AllNotesController {
                                 <input type="checkbox"  data-id="{{id}}" data-action="completeNote" class="completed">
                                 <span>{{title}}</span>
                                 <span>{{description}}</span>
-                                <span>{{importance}}</span>
+                  
+                                <span>
+                                     <fieldset class="fixed-rating">
+                                     {{#times importance}}
+                                        <input type="radio" id="star{{this}}" name="rating" value="{{this}}" /><label class= "full" for="star{{this}}" title="Awesome - {{this}} stars"></label>
+                                      {{/times}}
+                                     </fieldset>
+                                </span>
+                                <!-- https://stackoverflow.com/questions/18580495/format-a-date-from-inside-a-handlebars-template-in-meteor -->
                                 <span>{{dueDate}}</span>
-                                <button data-id="{{id}}" data-action="editNote" class="edit">Edit</button>
-                                <button data-id="{{id}}" data-action="deleteNote" class="delete">Delete</button>
+                                <button data-id="{{id}}" data-action="editNote" class="edit icon-button"><label data-id="{{id}}" data-action="editNote" title="Edit {{id}}"></label></button>
+                                <button data-id="{{id}}" data-action="deleteNote" class="delete icon-button"><label data-id="{{id}}" data-action="deleteNote" title="Delete {{id}}"></label></button>
                             </li>
                             {{/each}}
                           {{else}}
@@ -36,6 +44,13 @@ export default class AllNotesController {
                           {{/if}}
                     </ul>
               </div>`;
+
+        Handlebars.registerHelper('times', function(n, block) {
+            var accum = '';
+            for(var i = 0; i < n; ++i)
+                accum += block.fn(i);
+            return accum;
+        });
 
         this.allNotesTemplate = Handlebars.compile(this.template);
         this.mainContainer = document.querySelector("main");
@@ -80,6 +95,10 @@ export default class AllNotesController {
        document.querySelector('.completedTasks')
                 .addEventListener('click', (event) => {
                     // needs to be deselectable!
+            $("#completedTasks").click(function () {
+                localStorage.setItem('showCompletedNotes','false');
+                localStorage.setItem('showCompletedNotes','true');
+            });
             this.getCompletedNotes();
        });
 
