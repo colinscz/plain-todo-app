@@ -1,3 +1,5 @@
+import { httpService } from './http-service.js'
+
 export default class NotesService {
 
     constructor (url) {
@@ -6,66 +8,35 @@ export default class NotesService {
     }
 
     async getNoteById(id) {
+        // update with ajax TODO
         console.log('getNoteById is triggered');
-        return fetch(this.url + '/' + id, {
-            method: 'GET',
-            headers: {
-            'Content-Type': 'application/json'
-            }
-        }).then(response => response.json());
+        return await httpService.ajax("GET", this.url  + `/${id}`, undefined);
     }
 
     async getAllNotes() {
-        console.log('has been triggered');
-        return fetch(this.url).then(response => response.json());
+        return await httpService.ajax('GET', this.url, undefined);
     }
 
     async getCompletedNotes() {
-        return fetch(this.completedUrl).then(response => response.json());
+        return await httpService.ajax('GET', this.completedUrl, undefined);
     }
 
     async completeNote(note) {
-        return fetch(this.completedUrl, {
-            method: 'PUT',
-            body: JSON.stringify(note),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        });
+        return await httpService.ajax("PUT", this.completedUrl, note);
     }
 
     async createNote(note) {
         console.log('triggered: ', note);
-        return fetch(this.url, {
-            method: 'POST',
-            body: JSON.stringify(note),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        }).then(response => response.json());
+        return await httpService.ajax('POST', this.url, note);
     }
 
     async updateNote(note) {
         console.log('update existing note service is triggered');
-        return fetch(this.url, {
-            method: 'PUT',
-            body: JSON.stringify(note),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        }).then(response => response.json());
+        return await httpService.ajax('PUT', this.url, note);
     }
 
     async deleteNote(note) {
-        return fetch(this.url, {
-            method: 'DELETE',
-            body: JSON.stringify(note),
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        });
+        return await httpService.ajax('DELETE', this.url, note);
     }
-
-
 
 }
