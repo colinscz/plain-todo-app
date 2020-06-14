@@ -36,7 +36,7 @@ export class SingleNoteController {
                         <div class="col-25">
                             <label for="importance">Wichtigkeit</label>
                         </div>
-                        <div class="col-75 rating">
+                        <div class="col-75">
                             <fieldset class="rating">
                                 <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                                 <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -47,9 +47,7 @@ export class SingleNoteController {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-75">
-                            <input type="submit" value="Submit">
-                        </div>
+                        <input type="submit" value="Submit">
                     </div>
                 </form>
             </div>`;
@@ -126,8 +124,6 @@ export class SingleNoteController {
 
     injectNoteIntoForm(note) {
         console.log('injectForm triggered');
-        console.log('due Date before assignment: ', note.dueDate);
-        console.log('parseDate: ', note.dueDate);
         this.notesForm.title.value = note.title;
         this.notesForm.description.value = note.description;
         this.notesForm.dueDate.value = note.dueDate;
