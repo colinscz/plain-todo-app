@@ -1,5 +1,6 @@
 'use strict';
 
+import { localStorageService } from '../services/localstorage-service.js';
 import NotesService from '../services/notes-service.js';
 import { SingleNoteController } from './SingleNoteController.js';
 
@@ -9,12 +10,12 @@ export default class AllNotesController {
     constructor (notesService) {
         this.template = `
             <div class="container">
-                    <button id="createNote" class="right-aligned button-two"><span>Create New</span></button>
+                    <button id="createNote" class="right-aligned menu-button"><span>Create New</span></button>
                     <h3>Task List</h3>
-                    <button class="sortByDate button-two"><span>Sort by Due Date</span></button>
-                    <button class="sortByCreation button-two"><span>Sort by Creation Date</span></button>
-                    <button class="byImportance button-two"><span>Sort by Importance</span></button>
-                    <button class="completedTasks button-two"><span>Show completed tasks</span></button>
+                    <button class="sortByDate menu-button"><span>Sort by Due Date</span></button>
+                    <button class="sortByCreation menu-button"><span>Sort by Creation Date</span></button>
+                    <button class="byImportance menu-button"><span>Sort by Importance</span></button>
+                    <button class="completedTasks menu-button"><span>Show completed tasks</span></button>
                     <ul id="incomplete-tasks" class="tasks">
                         {{#if notes}}
                             {{#each notes}}
@@ -95,8 +96,12 @@ export default class AllNotesController {
                 .addEventListener('click', (event) => {
                     // needs to be deselectable!
             $("#completedTasks").click(function () {
-                localStorage.setItem('showCompletedNotes','false');
-                localStorage.setItem('showCompletedNotes','true');
+                let completedShown = localStorageService.getItem('showCompletedNotes');
+/*                if (completedShown !== undefined) {
+                    localStorageService.setItem('showCompletedNotes', !completedShown);
+                } else {
+                    localStorageService.setItem('showCompletedNotes', 'true');
+                }*/
             });
             this.getCompletedNotes();
        });

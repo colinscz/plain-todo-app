@@ -1,0 +1,138 @@
+
+/* Logo Animation */
+@keyframes color-rotate {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.logo:hover {
+    animation: color-rotate 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+header {
+    padding: 1em;
+    clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0);
+    background: var(--bg-nav);
+    margin-bottom: 1em;
+    padding-bottom: 3.5em;
+    text-align: center;
+}
+
+
+/****** Style Star Rating Widget *****/
+.fixed-rating {
+    border: none;
+}
+
+.fixed-rating > input {
+    display: none;
+}
+.fixed-rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+
+main > .container > ul > li {
+    border-bottom: 1px solid var(--gray2);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 50px;
+}
+
+main > .container > ul > li > span {
+    padding-right: 5px;
+    float: left;
+    width: 320px;
+}
+
+main > .container > ul > li > input {
+    float: left;
+    width: 40px;
+    border-right: 1px solid var(--text);
+}
+
+main > .container > ul > li:first-of-type {
+    padding-top: 40px;
+    min-height: 50px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 34px;
+}
+
+.right-aligned {
+    float: right;
+}
+
+
+/*** Icon button styling ****/
+.edit > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+    font-family: FontAwesome;
+    content: "\f040";
+}
+
+.delete > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+    font-family: FontAwesome;
+    content: "\f1f8";
+}
+
+.menu-button{
+    text-align: center;
+    cursor: pointer;
+}
+
+/*Menu Button*/
+.menu-button {
+    border-radius: 4px;
+    background-color: var(--blue);
+    border: none;
+    padding: 20px;
+    width: 235px;
+    transition: all 0.5s;
+}
+
+.menu-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+    color: var(--text);
+    transition: 0.5s;
+}
+
+.menu-button span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.menu-button:hover span {
+    padding-right: 25px;
+}
+
+.menu-button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
