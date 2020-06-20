@@ -26,12 +26,13 @@ a {
 }
 
 main {
+  display: flex;
   min-height: 1000px;
   padding: 2rem;
   font-size: 17px;
 }
 
-fieldset, label { margin: 0; padding: 0; }
+div, label { margin: 0; padding: 0; }
 h1 { font-size: 1.5em; margin: 10px; }
 
 div {

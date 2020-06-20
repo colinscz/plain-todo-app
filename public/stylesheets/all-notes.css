@@ -26,21 +26,10 @@ header {
 
 
 /****** Style Star Rating Widget *****/
-.fixed-rating {
-    border: none;
-}
 
-.fixed-rating > input {
-    display: none;
+main > .container {
+    flex-basis: 100%;
 }
-.fixed-rating > label:before {
-    margin: 5px;
-    font-size: 1.25em;
-    font-family: FontAwesome;
-    display: inline-block;
-    content: "\f005";
-}
-
 
 main > .container > ul > li {
     border-bottom: 1px solid var(--gray2);
@@ -53,12 +42,10 @@ main > .container > ul > li {
 
 main > .container > ul > li > span {
     padding-right: 5px;
-    float: left;
     width: 320px;
 }
 
 main > .container > ul > li > input {
-    float: left;
     width: 40px;
     border-right: 1px solid var(--text);
 }
@@ -73,12 +60,21 @@ h3 {
     font-size: 34px;
 }
 
-.right-aligned {
-    float: right;
+.tasks {
+    display: flex;
+    flex-direction: column;
 }
 
 
 /*** Icon button styling ****/
+.star > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+    font-family: FontAwesome;
+    content: "\f005";
+}
+
 .edit > label:before {
     margin: 5px;
     font-size: 1.25em;
@@ -95,12 +91,21 @@ h3 {
     content: "\f1f8";
 }
 
+.create-new span:before{
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+    font-family: FontAwesome;
+    content: "\f055";
+}
+
+
+/*Menu Button*/
 .menu-button{
     text-align: center;
     cursor: pointer;
 }
 
-/*Menu Button*/
 .menu-button {
     border-radius: 4px;
     background-color: var(--blue);
@@ -135,4 +140,65 @@ h3 {
 .menu-button:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+/** completed notes switch **/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }

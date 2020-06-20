@@ -31,6 +31,9 @@ window.addEventListener("hashchange", (event) => {
     if (event.newURL.includes('#new')) {
         SingleNoteController.doBootstrap();
     }
+    if (event.newURL.includes('#all')) {
+        AllNotesController.doBootstrap();
+    }
 });
 
 // new router(routes);

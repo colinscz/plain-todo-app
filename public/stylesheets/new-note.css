@@ -46,7 +46,6 @@ input[type=submit]:hover {
 /****** Style Star Rating Widget *****/
 .rating {
     border: none;
-    float: left;
 }
 
 .rating > input {
@@ -60,14 +59,8 @@ input[type=submit]:hover {
     content: "\f005";
 }
 
-.rating > .half:before {
-    content: "\f089";
-    position: absolute;
-}
-
 .rating > label {
     color: var(--gray0);
-    float: right;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
