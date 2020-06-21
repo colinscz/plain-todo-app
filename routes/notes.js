@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
-
 const dtoMapper = require('../dto/dtoMapper');
 const Note = require('../models/notes');
+const noteStore = require('../services/noteStore');
 
 
 router.get('/note/completed', async(req, res, next) => {
@@ -15,12 +15,6 @@ router.get('/note/completed', async(req, res, next) => {
   );
   // fetch all completed notes from db
     res.status(200).json(notesList);
-});
-
-router.get('/note/important', function(req, res, next) {
-
-  // fetch all important notes from db
-  res.status(200).send('respond with a resource');
 });
 
 router.post('/note',
