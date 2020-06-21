@@ -42,7 +42,7 @@ window.addEventListener("hashchange", (event) => {
     console.log('Jetziger Hash', event.oldURL);
 
     if (event.newURL.includes('#new')) {
-        SingleNoteController.doBootstrap(allServices);
+        routes['new'].doBootstrap(allServices);
     } else if (event.newURL.includes('#all')) {
         routes['all'].doBootstrap(allServices);
     } else if (event.newURL.endsWith('#')) {
