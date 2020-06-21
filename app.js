@@ -17,7 +17,11 @@ let app = express();
 const dbHost = 'mongodb://localhost:27017/tododb';
 
 // Connect to mongodb
-mongoose.connect(dbHost, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect(dbHost, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb://tester:tester12@ds121289.mlab.com:21289/heroku_xgphxv96', { promiseLibrary: require('bluebird') })
+    .then(() => console.log('connection successful'))
+    .catch((err) => console.error(err));
 
 // Parsers for POST data
 app.use(bodyParser.urlencoded({extended: true}));
