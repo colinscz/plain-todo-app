@@ -20,7 +20,6 @@ router.get('/note/completed', async(req, res, next) => {
 router.post('/note',
     async (req, res, next) => {
 
-      console.log('test: ', req.body);
       const parsedActiveFromDate = moment(req.body.dueDate);
 
       if (!parsedActiveFromDate.isValid()) {
@@ -72,7 +71,6 @@ router.put('/note/completed',
         const id = req.body.id;
 
         let note = await Note.findOne({'_id': id});
-
         note.completed = true;
 
         await note.save(function (err) {
@@ -105,19 +103,16 @@ router.get('/note',
 router.get('/note/:id',
     async (req, res, next) => {
 
-    console.log('id: ' , req.params.id)
-
-            Note.findById(req.params.id, (err, note) => {
-                if (err) {
-                    res.status(500).send(error);
-                }
-                res.status(200).json(dtoMapper.notesToDto(note));
-            });
+        Note.findById(req.params.id, (err, note) => {
+            if (err) {
+                res.status(500).send(error);
+            }
+            res.status(200).json(dtoMapper.notesToDto(note));
+        });
     });
 
 router.delete('/note',
     async (req, res, next) => {
-        console.log('id body: ', req.body.id);
         const id = req.body.id;
 
         await Note.findByIdAndDelete(id, function (err) {
