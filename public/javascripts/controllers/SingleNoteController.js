@@ -1,10 +1,7 @@
 'use strict';
-
-import NotesService from '../services/notes-service.js';
-
 export class SingleNoteController {
 
-    constructor (notesService) {
+    constructor (router, notesService) {
         this.template = `
             <div class="container">
                 <form id="notes-form">
@@ -37,6 +34,7 @@ export class SingleNoteController {
                             <label for="importance">Wichtigkeit</label>
                         </div>
                         <div class="col-75 rating">
+<!--                        https://codepen.io/ishitaa-ashley/pen/OYWBza-->
                             <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>                     
                             <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
                             <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
@@ -53,8 +51,8 @@ export class SingleNoteController {
         this.singleNoteTemplate = Handlebars.compile(this.template);
         this.mainContainer = document.querySelector("main");
         this.idOfEditingTask = null;
-        console.log('notesform: ', this.notesForm);
         this.notesService = notesService;
+        this.router =  router;
     }
 
     initEventHandlers() {
@@ -88,9 +86,8 @@ export class SingleNoteController {
             }
 
             // return to allNotes screen
-
+            // router navigate to home
             window.location.hash = '#all';
-
         });
     }
 
@@ -102,28 +99,19 @@ export class SingleNoteController {
 
     async init() {
         console.log('init method called')
-
         await this.renderSingleNoteView();
-
         // check if the call is for an edit task or not
         this.idOfEditingTask = window.location.hash.slice().split('=')[1];
 
-        console.log('id of task to edit: ', this.idOfEditingTask);
-        console.log('Not undefined id: ', this.idOfEditingTask !== undefined);
-
         if (this.idOfEditingTask !== undefined) {
-            console.log('id of task to edit: ', this.idOfEditingTask);
             let editNote = await this.notesService.getNoteById(this.idOfEditingTask);
-            console.log('editNote: ', editNote);
             this.injectNoteIntoForm(editNote);
         }
 
         this.initEventHandlers();
-
     }
 
     injectNoteIntoForm(note) {
-        console.log('injectForm triggered');
         this.notesForm.title.value = note.title;
         this.notesForm.description.value = note.description;
         this.notesForm.dueDate.value = note.dueDate;
@@ -132,7 +120,7 @@ export class SingleNoteController {
         }
     }
 
-    static async doBootstrap() {
-        await new SingleNoteController(new NotesService('/api/note')).init();
+    static async doBootstrap({router, notesService}) {
+        await new SingleNoteController(router, notesService).init();
     }
 }

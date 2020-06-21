@@ -1,5 +1,3 @@
-// Apply the cached theme on reload
-
 class LocalStorageService {
 
     setItem(name, value) {

@@ -1,17 +1,16 @@
-import ErrorService from '../services/error-service.js';
-
 export default class ErrorController {
 
-    constructor (errorService) {
+    constructor (errorService, router) {
         this.template = `
             <div class="container">
-                        <img src="/images/crying-svg.svg" class="sun" />
-                        <p>Oh no! Page not found. Seems like the requested page is not existing.</p>
-                         <p>{{errorMessage}}</p>
-                    </div>`;
+                <img src="/images/crying-svg.svg" class="sun" />
+                <p>Oh no! Page not found. Seems like the requested page is not existing.</p>
+                 <p>{{errorMessage}}</p>
+            </div>`;
 
         this.errorTemplate = Handlebars.compile(this.template);
         this.errorService = errorService;
+        this.router = router;
         this.mainContainer = document.querySelector("main");
     }
 
@@ -28,12 +27,11 @@ export default class ErrorController {
     }
 
     async init() {
-        console.log('init error method called')
         await this.renderErrorView();
     }
 
-    static async doBootstrap() {
-        await new ErrorController(new ErrorService()).init();
+    static async doBootstrap({errorService, router}) {
+        await new ErrorController(errorService, router).init();
     }
 
 }

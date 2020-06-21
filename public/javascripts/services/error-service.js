@@ -4,7 +4,7 @@ export default class ErrorService {
     }
 
     async getGeneralErrorMessage() {
-        return 'An error has occured, we are sorry for the trouble caused';
+        return 'An error has occured, we are sorry for the trouble caused.';
     }
 
 }

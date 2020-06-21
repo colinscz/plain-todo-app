@@ -1,13 +1,9 @@
 'use strict';
-
 import { localStorageService } from '../services/localstorage-service.js';
-import NotesService from '../services/notes-service.js';
-import { SingleNoteController } from './SingleNoteController.js';
-
 
 export default class AllNotesController {
 
-    constructor (notesService) {
+    constructor (router, notesService) {
         this.template = `
             <div class="container">
                     <button id="createNote" class="menu-button create-new"><span>Create New</span></button>
@@ -15,13 +11,17 @@ export default class AllNotesController {
                     <button class="sortByDate menu-button"><span>Sort by Due Date</span></button>
                     <button class="sortByCreation menu-button"><span>Sort by Creation Date</span></button>
                     <button class="byImportance menu-button"><span>Sort by Importance</span></button>
-                    <button class="completedTasks menu-button" data-starttext="Show completed tasks" data-selecttext="Show open tasks" id="completeButton"><span>Show completed tasks</span></button>
-                    <ul id="incomplete-tasks" class="tasks">
+                    {{#if showCompleted }}
+                        <button class="completedTasks menu-button" id="completeButton"><span>Show just open tasks</span></button>
+                    {{else}}
+                        <button class="completedTasks menu-button" id="completeButton"><span>Show completed tasks</span></button>
+                    {{/if}}
+                    <div id="incomplete-tasks" class="tasks">
                         {{#if notes}}
                             {{#each notes}}
-                                <li>
+                                <div class="each-task">
                                     {{#if completed }}
-                                        <input type="checkbox"  data-id="{{id}}" data-action="completeNote" class="completed" checked="true">
+                                        <input type="checkbox"  data-id="{{id}}" data-action="notCompleted" class="completed" checked="true">
                                     {{else}}
                                         <input type="checkbox"  data-id="{{id}}" data-action="completeNote" class="completed">
                                     {{/if}}
@@ -33,32 +33,34 @@ export default class AllNotesController {
                                           {{/times}}
                                     </span>
                                     <span>{{formatDate dueDate}}</span>
-                                    <button data-id="{{id}}" data-action="editNote" class="edit icon-button"><label data-id="{{id}}" data-action="editNote" title="Edit {{id}}"></label></button>
+                                    {{#unless completed }}
+                                        <button data-id="{{id}}" data-action="editNote" class="edit icon-button"><label data-id="{{id}}" data-action="editNote" title="Edit {{id}}"></label></button>
+                                    {{/unless}}
                                     <button data-id="{{id}}" data-action="deleteNote" class="delete icon-button"><label data-id="{{id}}" data-action="deleteNote" title="Delete {{id}}"></label></button>
-                                </li>
+                                </div>
                             {{/each}}
                           {{else}}
                             <p>Everything is done! Enjoy your time off!</p>
                           {{/if}}
-                    </ul>
+                    </div>
               </div>`;
 
         this.allNotesTemplate = Handlebars.compile(this.template);
         this.mainContainer = document.querySelector("main");
         this.notesService = notesService;
+        this.router = router;
         this.showCompleted = false;
     }
 
     initEventHandlers() {
         console.log('AllNotesController.js event handlers');
 
-        $("#createNote").click( function () {
+        document.querySelector(".create-new").addEventListener('click', () => {
             console.log('clicked Neew Note');
             // add Router hash to window
-            SingleNoteController.doBootstrap();
+            this.navigateToSingleNote();
         });
 
-       // let completeAction = document.querySelectorAll(".completed");
        document.querySelector(".tasks")
                 .addEventListener('click', (event) => {
            let {id, action} = event.target.dataset;
@@ -78,6 +80,9 @@ export default class AllNotesController {
                case 'completeNote':
                    this.completeNote(affectedNote);
                    break;
+               case 'notCompleted':
+                   affectedNote.completed = false;
+                   this.updateNote(affectedNote);
                default:
                    console.log('action not matched or error');
                    break;
@@ -85,51 +90,35 @@ export default class AllNotesController {
        });
 
         $("#completeButton").click(() => {
-
-            let textToShow = '';
-
             let showCompletedNotes = localStorageService.getItem('showCompletedNotes');
             if (showCompletedNotes === null || showCompletedNotes === 'false') {
                 console.log('checked false');
                 localStorageService.setItem('showCompletedNotes', 'true');
                 this.showCompleted = true;
-               // this.getCompletedNotes();
-                textToShow = $("#completeButton").data('selecttext');
-                $("#completeButton").find('span').text(textToShow);
             } else {
                 console.log('checked true');
                 localStorageService.setItem('showCompletedNotes', 'false');
-             //   this.getAllNotes();
                 this.showCompleted = false;
-                textToShow = $("#completeButton").data('starttext');
-                $("#completeButton").find('span').text(textToShow);
             }
             this.renderAllNotesView();
         });
 
-       document.querySelector('.sortByDate').addEventListener(
-           'click', (event) => {
-               this.sortNotesByDueDate();
-           }
-       );
-
-        document.querySelector('.byImportance').addEventListener(
-            'click', (event) => {
-                this.sortByImportance();
-            }
-        );
-
-        document.querySelector('.sortByCreation').addEventListener(
-            'click', (event) => {
-                this.sortNotesByCreationDate();
-            }
-        );
+       document.querySelector('.sortByDate').addEventListener('click', (event) => {
+           this.sortNotesByDueDate();
+       });
+       document.querySelector('.byImportance').addEventListener('click', (event) => {
+           this.sortByImportance();
+       });
+       document.querySelector('.sortByCreation').addEventListener('click', (event) => {
+           this.sortNotesByCreationDate();
+       });
 
     }
 
     async deleteNote(noteToDelete) {
         // filter out to be deleted task from view
-        this.notes = this.notes.filter((note) => note.id = noteToDelete.id);
+        this.notes = this.notes.filter((note) => note.id !== noteToDelete.id);
+        console.log('Notes after it has been filtered: ', this.notes);
         try {
             await this.notesService.deleteNote(noteToDelete);
         } catch (error) {
@@ -140,14 +129,22 @@ export default class AllNotesController {
     }
 
     async completeNote(completedNote) {
-        // this.notes.filter((note) => note.id = completedNote.id);
         try {
             await this.notesService.completeNote(completedNote);
         } catch (error) {
             console.log('An exception happened: ', error);
-            this.notes.push(completedNote);
         }
         await this.renderAllNotesView();
+    }
+
+    async updateNote (affectedNote) {
+        try {
+            await this.notesService.updateNote(affectedNote);
+        } catch (error) {
+            console.log('An exception happened: ', error);
+        }
+        await this.getAllNotes();
+       // await this.renderAllNotesView();
     }
 
     async getCompletedNotes() {
@@ -178,12 +175,8 @@ export default class AllNotesController {
 
     // rendering & navigation
     navigateToSingleNote(id) {
-        window.location.hash = '#new?id=' + id;
-        console.log('go to singleController');
-        // this.router.navigate(
-        // routing to singleNoteController
+        window.location.hash = id ? '#new?id=' + id : '#new';
     }
-
     async renderAllNotesView() {
         this.allNotes = this.notes.filter((note) => this.showCompleted || !note.completed);
         this.mainContainer.innerHTML = this.allNotesTemplate({
@@ -195,13 +188,10 @@ export default class AllNotesController {
 
     async init() {
         await this.getAllNotes();
-        console.log('init method called')
-        console.log('notes are: ', this.notes);
         await this.renderAllNotesView();
     }
 
-    static async doBootstrap() {
-        await new AllNotesController(new NotesService('/api/note')).init();
+    static async doBootstrap({router, notesService}) {
+        await new AllNotesController(router, notesService).init();
     }
-
 }
