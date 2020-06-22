@@ -18,27 +18,33 @@ export default class AllNotesController {
                         <button class="completedTasks menu-button" id="completeButton"><span>Show completed tasks</span></button>
                     {{/if}}
                     </div>
-                    <div id="incomplete-tasks" class="tasks">
+                    <div id="incomplete-tasks" >
                         {{#if notes}}
                             {{#each notes}}
-                                <div class="each-task">
-                                    {{#if completed }}
-                                        <input type="checkbox"  data-id="{{id}}" data-action="notCompleted" class="completed" checked="true">
-                                    {{else}}
-                                        <input type="checkbox"  data-id="{{id}}" data-action="completeNote" class="completed">
-                                    {{/if}}
-                                    <span>{{title}}</span>
-                                    <span>{{description}}</span>
-                                    <span class="star">
-                                         {{#times importance}}
-                                             <label></label>
-                                          {{/times}}
-                                    </span>
-                                    <span>{{formatDate dueDate}}</span>
-                                    {{#unless completed }}
-                                        <button data-id="{{id}}" data-action="editNote" class="edit icon-button"><label data-id="{{id}}" data-action="editNote" title="Edit {{id}}"></label></button>
-                                    {{/unless}}
-                                    <button data-id="{{id}}" data-action="deleteNote" class="delete icon-button"><label data-id="{{id}}" data-action="deleteNote" title="Delete {{id}}"></label></button>
+                            <div class="tasks">
+                                    <div class="note-todo">
+                                        {{#if completed }}
+                                            <input type="checkbox"  data-id="{{id}}" data-action="notCompleted" class="completed" checked="true">
+                                        {{else}}
+                                            <input type="checkbox"  data-id="{{id}}" data-action="completeNote" class="completed">
+                                        {{/if}}
+                                    </div>
+                                    <div class="note-title">{{title}}</div>
+                                    <div class="note-description">{{description}}</div>
+                                    <div class="note-importance">
+                                        <span class="star">
+                                             {{#times importance}}
+                                                 <label></label>
+                                              {{/times}}
+                                        </span>                              
+                                    </div>
+                                    <div class="note-duedate">{{formatDate dueDate}}</div>
+                                    <div class="action-items">
+                                        {{#unless completed }}
+                                            <button data-id="{{id}}" data-action="editNote" class="edit icon-button"><label data-id="{{id}}" data-action="editNote" title="Edit {{id}}"></label></button>
+                                        {{/unless}}
+                                        <button data-id="{{id}}" data-action="deleteNote" class="delete icon-button"><label data-id="{{id}}" data-action="deleteNote" title="Delete {{id}}"></label></button>
+                                    </div>
                                 </div>
                             {{/each}}
                           {{else}}

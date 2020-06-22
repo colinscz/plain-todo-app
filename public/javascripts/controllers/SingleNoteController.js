@@ -66,10 +66,10 @@ export class SingleNoteController {
                 if (document.getElementById('star' + index).checked) {
                     importance = index;
                 }
-                if (document.getElementById('star1').checked == false) {
-                   importance = index;
+/*                if (document.getElementById('star5').checked == false) {
+                   importance = 1;
                    break;
-                }
+                }*/
             }
 
             const submittedNote = {

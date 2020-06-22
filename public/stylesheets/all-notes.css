@@ -58,21 +58,46 @@ h3 {
     font-size: 34px;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .tasks {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+/*    display: grid;*/
+    padding-left: 0;
+    padding-right: 0;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 1.5fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1px 1px;
+    grid-template-areas: "note-todo note-title note-description note-importance note-duedate action-items" ". . . . . ." ". . . . . ." ". . . . . .";
 }
 
-.each-task {
-    flex: 1;
+.note-title {
+    grid-area: note-title;
 }
 
-.note-title, .note-description, .note-importance, .note-duedate, .action-items, .note-todo {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: flex-start;
+.note-description{
+    grid-area: note-description;
+}
+
+.note-importance {
+    grid-area: note-importance;
+}
+
+.note-duedate {
+    grid-area: note-duedate;
+}
+
+.action-items {
+    grid-area: action-items;
+}
+
+.note-todo {
+    grid-area: note-todo;
 }
 
 /****** Style Star Rating Widget *****/
