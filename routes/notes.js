@@ -87,7 +87,7 @@ router.put('/note/completed',
 router.get('/note',
     async (req, res, next) => {
 
-        const notesList = await Note.find({'completed': false})
+        const notesList = await Note.find({})
             .catch((error) => {
                     console.log(error, 'Promise error: ' + error.message);
                 }
