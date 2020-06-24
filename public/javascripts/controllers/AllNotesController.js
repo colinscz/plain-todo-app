@@ -131,8 +131,9 @@ export default class AllNotesController {
     }
 
     async completeNote(completedNote) {
+        completedNote.completed = true;
         try {
-            await this.notesService.completeNote(completedNote);
+            await this.notesService.updateNote(completedNote);
         } catch (error) {
             console.log('An exception happened: ', error);
         }
@@ -145,8 +146,8 @@ export default class AllNotesController {
         } catch (error) {
             console.log('An exception happened: ', error);
         }
-        await this.getAllNotes();
-       // await this.renderAllNotesView();
+       // await this.getAllNotes();
+        this.renderAllNotesView();
     }
 
     async getCompletedNotes() {
@@ -180,6 +181,7 @@ export default class AllNotesController {
     navigateToSingleNote(id) {
         window.location.hash = id ? '#new?id=' + id : '#new';
     }
+
     async renderAllNotesView() {
         this.allNotes = this.notes.filter((note) => this.showCompleted || !note.completed);
         this.mainContainer.innerHTML = this.allNotesTemplate({
