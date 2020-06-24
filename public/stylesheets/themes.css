@@ -2,6 +2,7 @@
 /* Themes */
 :root {
     --gray0: #f8f8f8;
+    --gray1-light: #ccc;
     --gray1: #dbe1e8;
     --gray2: #b2becd;
     --gray3: #6c7983;
@@ -13,11 +14,8 @@
     --blue3: #0084a8;
     --purple: #a82dd1;
     --yellow: #fff565;
-    --stars: 5;
-    --star-size: 40px;
-    --star-spacing: 2px;
-    --star-on-color: #F9DF4A;
-    --star-off-color: #CCCCCC;
+    --star: #EFCE4A;
+    --green: #45a049;
 }
 
 .light {
