@@ -15,7 +15,7 @@ export default class ErrorController {
     }
 
     initEventHandlers() {
-        console.log('here are the event handlers');
+        // here the error events will be initialized
     }
 
     async renderErrorView() {

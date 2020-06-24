@@ -61,10 +61,7 @@ export default class AllNotesController {
     }
 
     initEventHandlers() {
-        console.log('AllNotesController.js event handlers');
-
         document.querySelector(".create-new").addEventListener('click', () => {
-            console.log('clicked Neew Note');
             // add Router hash to window
             this.navigateToSingleNote();
         });
@@ -72,14 +69,11 @@ export default class AllNotesController {
        document.querySelector(".task-list")
                 .addEventListener('click', (event) => {
            let {id, action} = event.target.dataset;
-           console.log('id: ', id);
-           console.log('action: ', action);
 
            const affectedNote = this.notes.find((note) => note.id === id);
 
            switch (action) {
                case 'deleteNote':
-                   console.log('deleteNote Id: ', id);
                    this.deleteNote(affectedNote);
                    break;
                case 'editNote':

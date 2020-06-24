@@ -50,8 +50,6 @@ router.put('/note',
 
         const id = req.body.id;
 
-        console.log('body: ', req.body);
-
         let note = await Note.findByIdAndUpdate(
             {'_id': id}, req.body, function (err) {
                 if (err) {

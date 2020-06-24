@@ -33,13 +33,49 @@ export class SingleNoteController {
                         <div class="col-25">
                             <label for="importance">Wichtigkeit</label>
                         </div>
-                        <div class="col-75 rating">
-<!--                        https://codepen.io/ishitaa-ashley/pen/OYWBza-->
-                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>                     
-                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                        <div class="col-75">
+                            <div class="stars">
+                                    <input class="stars__checkbox" type="radio" id="star-5" name="star">
+                                    <label class="stars__star" for="star-5">
+                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                            <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/>
+                                        </svg>
+                                    </label>
+                                    <input class="stars__checkbox" type="radio" id="star-4" name="star">
+                                    <label class="stars__star" for="star-4">
+                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                            <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/>
+                                        </svg>
+                                    </label>
+                                    <input class="stars__checkbox" type="radio" id="star-3" name="star">
+                                    <label class="stars__star" for="star-3">
+                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                            <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/>
+                                        </svg>
+                                    </label>
+                                    <input class="stars__checkbox" type="radio" id="star-2" name="star">
+                                    <label class="stars__star" for="star-2">
+                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                            <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/>
+                                        </svg>
+                                    </label>
+                                    <input class="stars__checkbox" type="radio" id="star-1" name="star">
+                                    <label class="stars__star" for="star-1">
+                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                            <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/>
+                                        </svg>
+                                    </label>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
@@ -56,20 +92,14 @@ export class SingleNoteController {
     }
 
     initEventHandlers() {
-        console.log('here are the event handlers');
-
         document.querySelector('#notes-form').addEventListener('submit', async(event) => {
             event.preventDefault();
 
             let importance = 0;
             for (let index = 1; index <= 5 ; index++) {
-                if (document.getElementById('star' + index).checked) {
+                if (document.getElementById('star-' + index).checked) {
                     importance = index;
                 }
-/*                if (document.getElementById('star5').checked == false) {
-                   importance = 1;
-                   break;
-                }*/
             }
 
             const submittedNote = {
@@ -81,9 +111,7 @@ export class SingleNoteController {
             };
 
             if (this.idOfEditingTask !== undefined) {
-                // importance: event.target.importance.value,
                 submittedNote.id = this.idOfEditingTask;
-                console.log('update existing note is triggered');
                 await this.notesService.updateNote(submittedNote);
             } else {
                 await this.notesService.createNote(submittedNote);
@@ -96,13 +124,11 @@ export class SingleNoteController {
     }
 
     async renderSingleNoteView() {
-       // this.allNotes = this.notes;
       this.mainContainer.innerHTML = this.singleNoteTemplate();
       this.notesForm = document.getElementById('notes-form');
     }
 
     async init() {
-        console.log('init method called')
         await this.renderSingleNoteView();
         // check if the call is for an edit task or not
         this.idOfEditingTask = window.location.hash.slice().split('=')[1];
@@ -120,7 +146,7 @@ export class SingleNoteController {
         this.notesForm.description.value = note.description;
         this.notesForm.dueDate.value = note.dueDate;
         for (let index = 1; index <= note.importance; index++) {
-            document.getElementById('star' + index).click();
+            $("#star-" + index).prop('checked', true);
         }
     }
 

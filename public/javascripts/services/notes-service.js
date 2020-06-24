@@ -26,12 +26,10 @@ export default class NotesService {
     }
 
     async createNote(note) {
-        console.log('triggered: ', note);
         return await httpService.ajax('POST', this.url, note);
     }
 
     async updateNote(note) {
-        console.log('update existing note service is triggered');
         return await httpService.ajax('PUT', this.url, note);
     }
 
