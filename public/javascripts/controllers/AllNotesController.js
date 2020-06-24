@@ -18,7 +18,7 @@ export default class AllNotesController {
                         <button class="completedTasks menu-button" id="completeButton"><span>Show completed tasks</span></button>
                     {{/if}}
                     </div>
-                    <div id="incomplete-tasks" >
+                    <div id="incomplete-tasks" class="task-list">
                         {{#if notes}}
                             {{#each notes}}
                             <div class="tasks">
@@ -69,7 +69,7 @@ export default class AllNotesController {
             this.navigateToSingleNote();
         });
 
-       document.querySelector(".tasks")
+       document.querySelector(".task-list")
                 .addEventListener('click', (event) => {
            let {id, action} = event.target.dataset;
            console.log('id: ', id);
@@ -178,6 +178,7 @@ export default class AllNotesController {
 
     async sortNotesByCreationDate() {
         this.notes.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
+        // sort ascending and descending TODO
         this.renderAllNotesView();
     }
 
