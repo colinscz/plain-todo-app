@@ -61,6 +61,17 @@ export default class AllNotesController {
     }
 
     initEventHandlers() {
+        const orderStrategySelected = localStorageService.getItem('orderStrategy');
+        const showCompletedNotes = localStorageService.getItem('showCompletedNotes');
+
+        if (orderStrategySelected) {
+            $("." + orderStrategySelected).addClass('toggleStrategy');
+        }
+
+        if (showCompletedNotes === 'true') {
+            this.showCompleted = true;
+        }
+
         document.querySelector(".create-new").addEventListener('click', () => {
             // add Router hash to window
             this.navigateToSingleNote();
@@ -94,11 +105,9 @@ export default class AllNotesController {
         $("#completeButton").click(() => {
             let showCompletedNotes = localStorageService.getItem('showCompletedNotes');
             if (showCompletedNotes === null || showCompletedNotes === 'false') {
-                console.log('checked false');
                 localStorageService.setItem('showCompletedNotes', 'true');
                 this.showCompleted = true;
             } else {
-                console.log('checked true');
                 localStorageService.setItem('showCompletedNotes', 'false');
                 this.showCompleted = false;
             }
@@ -106,12 +115,15 @@ export default class AllNotesController {
         });
 
        document.querySelector('.sortByDate').addEventListener('click', (event) => {
+           localStorageService.setItem('orderStrategy', 'sortByDate');
            this.sortNotesByDueDate();
        });
        document.querySelector('.byImportance').addEventListener('click', (event) => {
+           localStorageService.setItem('orderStrategy', 'byImportance');
            this.sortByImportance();
        });
        document.querySelector('.sortByCreation').addEventListener('click', (event) => {
+           localStorageService.setItem('orderStrategy', 'sortByCreation');
            this.sortNotesByCreationDate();
        });
 
@@ -147,7 +159,7 @@ export default class AllNotesController {
             console.log('An exception happened: ', error);
         }
        // await this.getAllNotes();
-        this.renderAllNotesView();
+        await this.renderAllNotesView();
     }
 
     async getCompletedNotes() {

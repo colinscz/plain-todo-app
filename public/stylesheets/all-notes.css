@@ -66,7 +66,6 @@ h3 {
 }
 
 .tasks {
-/*    display: grid;*/
     padding-left: 0;
     padding-right: 0;
     display: grid;
@@ -151,6 +150,14 @@ h3 {
     padding: 20px;
     width: 235px;
     transition: all 0.5s;
+}
+
+.menu-button.toggleStrategy {
+    background-color: var(--yellow);
+}
+
+.menu-button.toggleStrategy span {
+    color: var(--sort-selected);
 }
 
 .menu-button span {

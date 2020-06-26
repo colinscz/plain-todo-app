@@ -35,6 +35,7 @@
     --bg-dropdown: var(--gray6);
     --bg-form: var(--gray5);
     --text: var(--gray0);
+    --sort-selected: var(--gray6);
     --border-color: var(--purple);
     --bg-solar: var(--blue);
 }

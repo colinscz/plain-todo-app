@@ -8,8 +8,6 @@ export default class NotesService {
     }
 
     async getNoteById(id) {
-        // update with ajax TODO
-        console.log('getNoteById is triggered');
         return await httpService.ajax("GET", this.url  + `/${id}`, undefined);
     }
 
@@ -19,10 +17,6 @@ export default class NotesService {
 
     async getCompletedNotes() {
         return await httpService.ajax('GET', this.completedUrl, undefined);
-    }
-
-    async completeNote(note) {
-        return await httpService.ajax("PUT", this.completedUrl, note);
     }
 
     async createNote(note) {
