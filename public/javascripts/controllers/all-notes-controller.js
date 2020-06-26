@@ -97,7 +97,7 @@ export default class AllNotesController {
                    affectedNote.completed = false;
                    this.updateNote(affectedNote);
                default:
-                   console.log('action not matched or error');
+                   console.error('action not matched or error');
                    break;
            }
        });
@@ -132,7 +132,6 @@ export default class AllNotesController {
     async deleteNote(noteToDelete) {
         // filter out to be deleted task from view
         this.notes = this.notes.filter((note) => note.id !== noteToDelete.id);
-        console.log('Notes after it has been filtered: ', this.notes);
         try {
             await this.notesService.deleteNote(noteToDelete);
         } catch (error) {
@@ -147,7 +146,7 @@ export default class AllNotesController {
         try {
             await this.notesService.updateNote(completedNote);
         } catch (error) {
-            console.log('An exception happened: ', error);
+            console.error('An exception happened: ', error);
         }
         await this.renderAllNotesView();
     }
@@ -156,14 +155,8 @@ export default class AllNotesController {
         try {
             await this.notesService.updateNote(affectedNote);
         } catch (error) {
-            console.log('An exception happened: ', error);
+            console.error('An exception happened: ', error);
         }
-       // await this.getAllNotes();
-        await this.renderAllNotesView();
-    }
-
-    async getCompletedNotes() {
-        this.notes = await this.notesService.getCompletedNotes();
         await this.renderAllNotesView();
     }
 
@@ -174,7 +167,6 @@ export default class AllNotesController {
 
     async sortNotesByDueDate() {
         this.notes.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-        console.log(this.notes);
         this.renderAllNotesView();
     }
 

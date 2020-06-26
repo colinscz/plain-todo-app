@@ -3,7 +3,7 @@ export default class ErrorController {
     constructor (errorService, router) {
         this.template = `
             <div class="container">
-                <img src="/images/crying-svg.svg" class="sun" />
+                <img src="/images/crying-svg.svg" />
                 <p>Oh no! Page not found. Seems like the requested page is not existing.</p>
                  <p>{{errorMessage}}</p>
             </div>`;

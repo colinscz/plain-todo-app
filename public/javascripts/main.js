@@ -1,10 +1,10 @@
 'use strict';
 
 import '/jquery.min.js';
-import AllNotesController from './controllers/AllNotesController.js';
-import ErrorController from './controllers/ErrorController.js';
-import { SingleNoteController } from './controllers/SingleNoteController.js';
-import * as Router from './router/Router.js';
+import AllNotesController from './controllers/all-notes-controller.js';
+import ErrorController from './controllers/error-controller.js';
+import { SingleNoteController } from './controllers/single-note-controller.js';
+import * as Router from './router/router.js';
 import NotesService from './services/notes-service.js';
 import ErrorService from './services/error-service.js';
 
@@ -32,14 +32,18 @@ $("#allNotes").click( function () {
     AllNotesController.doBootstrap(allServices);
 });
 
-document.addEventListener('DOMContentLoaded', AllNotesController.doBootstrap(allServices));
+document.addEventListener('DOMContentLoaded', (event) => {
+        const currentRoute = Router.evaluteCurrentHashLocation();
+        const existingRoute = Object.keys(routes).filter((key) => key === currentRoute);
+
+        if (existingRoute !== undefined && !$.isEmptyObject(existingRoute)) {
+            routes[existingRoute].doBootstrap(allServices);
+        } else {
+            AllNotesController.doBootstrap(allServices);
+        }
+});
 
 window.addEventListener("hashchange", (event) => {
-
-   // Router.navigate(event.newURL);
-    console.log('Aktueller Hash', location.hash);
-    console.log('Neuer Hash', event.newURL);
-    console.log('Jetziger Hash', event.oldURL);
 
     if (event.newURL.includes('#new')) {
         routes['new'].doBootstrap(allServices);
